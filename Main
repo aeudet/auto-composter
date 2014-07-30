@@ -1,9 +1,14 @@
 import random
 
+# Major/Minor
+majorMinor = random.choice(["major", "minor"])
+
 # Key Section
 
-majorKeys = ["C Major", "G Major", "D Major", "A Major", "E Major", "B Major", "F# Major", "Db Major", "Ab Major", "Eb Major", "Bb Major", "F Major"]
-minorKeys = ["A Minor", "E Minor", "B Minor", "F# Minor", "C# Minor", "G# Minor", "Eb Minor", "Bb Minor", "F Minor", "C Minor", "G Minor", "D Minor"]
+if majorMinor == "major":
+	key = random.choice(["C Major", "G Major", "D Major", "A Major", "E Major", "B Major", "F# Major", "Db Major", "Ab Major", "Eb Major", "Bb Major", "F Major"])
+elif majorMinor == "minor":
+	key = random.choice(["A Minor", "E Minor", "B Minor", "F# Minor", "C# Minor", "G# Minor", "Eb Minor", "Bb Minor", "F Minor", "C Minor", "G Minor", "D Minor"])
 
 # Tempo Section
 
@@ -29,16 +34,19 @@ elif bpm >=116 and bpm < 141:
 else:
 	tempo = "Error"
 
-#Chords
-
-chordPool = ["I", "I", "ii", "iii", "IV", "IV", "V", "V", "vi"] # Chords in the chord pool
-
 # Song Length
 
 songlengthRange = range(80,270) # Range of song length
 bps = bpm/60
 songlengthSecs = random.choice(songlengthRange) # Chosen song length
 barsTotal = bps*songlengthSecs/4
+
+#Chords
+
+if majorMinor == "major":
+	chordPool = ["I", "I", "ii", "iii", "IV", "IV", "V", "V", "vi"]
+elif majorMinor == "minor":
+	chordPool = ["i", "i", "III", "iv", "iv", "v", "v", "VI", "VII"]
 
 # Generates a chord progression
 def generateProgression(numberOfChords):
@@ -61,7 +69,6 @@ def generateStructure(numberOfSections):
 		randomSection = random.choice(sectionPool[:sectionsUsed+1]) # Select from currently used sections +1 new
 		if sectionsUsed > 0 and randomSection == structure[i-1]: # reduce repeat sections
 			randomSection = random.choice(sectionPool[:sectionsUsed+1]) # reroll!
-			print "reroll to " + randomSection
 		if randomSection == sectionPool[sectionsUsed]: # Check if new section letter is used
 			sectionsUsed += 1
 		structure.append(randomSection)
@@ -83,7 +90,7 @@ for i in range(sectionsUsed):
 # Output
 
 # Display key
-print random.choice(majorKeys + minorKeys)
+print key
 # Display tempo
 print tempo + ": " + str(bpm) + " bpm"
 #Display structure
