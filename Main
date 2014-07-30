@@ -2,24 +2,94 @@ import random
 
 # Key Section
 
-maj_key = ["C Major", "G Major", "D Major", "A Major", "E Major", "B Major", "Gb Major", "Db Major", "Ab Major", "Eb Major", "Bb Major", "F Major"]
-min_key = ["A Minor", "E Minor", "B Minor", "F# Minor", "C# Minor", "G# Minor", "Eb Minor", "Bb Minor", "C Minor", "F Minor", "G Minor", "D Minor"]
+majorKeys = ["C Major", "G Major", "D Major", "A Major", "E Major", "B Major", "F# Major", "Db Major", "Ab Major", "Eb Major", "Bb Major", "F Major"]
+minorKeys = ["A Minor", "E Minor", "B Minor", "F# Minor", "C# Minor", "G# Minor", "Eb Minor", "Bb Minor", "F Minor", "C Minor", "G Minor", "D Minor"]
 
 # Tempo Section
 
-bpm = range(55,140) # Range of bpm
+bpmRange = range(54,141) # Range of bpm
+bpm = random.choice(bpmRange) # Chosen bpm
+
+if bpm >= 54 and bpm < 65:
+    tempo = "Allegro"
+elif bpm >= 65 and bpm < 75:
+    tempo = "Adagietto"
+elif bpm >=75 and bpm < 84:
+    tempo = "Andantino"
+elif bpm >=84 and bpm < 90:
+    tempo = "Andante"
+elif bpm >=90 and bpm < 100:
+    tempo = "Andante Moderato"
+elif bpm >=100 and bpm < 112:
+    tempo = "Moderato"
+elif bpm >=112 and bpm < 116:
+    tempo = "Allegro Moderato"
+elif bpm >=116 and bpm < 141:
+    tempo = "Allegro"
+else:
+	tempo = "Error"
 
 #Chords
 
-chord_list = ["I", "ii", "IV", "V", "vi"] # Chords in the chord pool
-chord_rand = (random.choice(chord_list)) # Random chord selected from chord pool
-chord_num_range = range(3,6) # Range of how many chords per progression
-chord_num = (random.choice(chord_num_range)) # Number of chords per prgoression
+chordPool = ["I", "I", "ii", "iii", "IV", "IV", "V", "V", "vi"] # Chords in the chord pool
 
+# Song Length
+
+songlengthRange = range(80,270) # Range of song length
+bps = bpm/60
+songlengthSecs = random.choice(songlengthRange) # Chosen song length
+barsTotal = bps*songlengthSecs/4
+
+# Generates a chord progression
+def generateProgression(numberOfChords):
+	progression = []
+	for i in range(numberOfChords):
+		randomChord = random.choice(chordPool)
+		progression.append(randomChord)
+	return progression
+
+#Structure
+
+sectionPool = ["A", "B", "C", "D", "E", "F"]
+
+# Generates the song's structure
+def generateStructure(numberOfSections):
+	structure = []
+	global sectionsUsed
+	sectionsUsed = 0
+	for i in range(numberOfSections):
+		randomSection = random.choice(sectionPool[:sectionsUsed+1]) # Select from currently used sections +1 new
+		if sectionsUsed > 0 and randomSection == structure[i-1]: # reduce repeat sections
+			randomSection = random.choice(sectionPool[:sectionsUsed+1]) # reroll!
+			print "reroll to " + randomSection
+		if randomSection == sectionPool[sectionsUsed]: # Check if new section letter is used
+			sectionsUsed += 1
+		structure.append(randomSection)
+	return structure
+
+#Song
+
+#Generate structure
+totalSections = random.choice(range(3,7))
+songStructure = generateStructure(totalSections)
+
+#Generate progressions for each section
+progressions = []
+for i in range(sectionsUsed):
+	totalChords = random.choice(range(3,6))
+	progressions.append(generateProgression(totalChords))
+	
+	
 # Output
 
-print(random.choice(maj_key))
-print (random.choice(bpm))
-print chord_rand
-
-
+# Display key
+print random.choice(majorKeys + minorKeys)
+# Display tempo
+print tempo + ": " + str(bpm) + " bpm"
+#Display structure
+print "Structure:"
+print songStructure
+# Display progressions for each section
+for i in range(sectionsUsed):
+	print sectionPool[i] + ":"
+	print progressions[i]
