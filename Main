@@ -16,7 +16,7 @@ bpmRange = range(54,141) # Range of bpm
 bpm = random.choice(bpmRange) # Chosen bpm
 
 if bpm >= 54 and bpm < 65:
-    tempo = "Allegro"
+    tempo = "Adagio"
 elif bpm >= 65 and bpm < 75:
     tempo = "Adagietto"
 elif bpm >=75 and bpm < 84:
