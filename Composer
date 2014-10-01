@@ -101,7 +101,7 @@ def generate_chord_list(number_of_bars):
 section_A = {generate_chord_list}
 
 
-print " | ".join(chord_gen(chord_chain_major, "I", chords_per_bar))
+print " | ".join(chord_gen(chord_chain_major, chords_per_bar))
 
 # Song Structure
 
