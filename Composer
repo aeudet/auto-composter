@@ -51,6 +51,7 @@ elif majorMinor == "minor":
 
 
 chord_chain_major = {
+    "start": {"I":1, "IV":1, "V":1},
     "I": {"I": 1, "ii": 1, "iii": 1, "IV": 1, "V": 1, "vi": 1, "vii": 1},
     "ii": {"V": 1, "vii": 1},
     "iii": {"vi": 1},
@@ -61,6 +62,7 @@ chord_chain_major = {
 }
 
 chord_chain_minor = {
+    "start": {"i":1, "iv":1, "v":1},
     "i": {"i": 1, "ii": 1, "III": 1, "iv": 1, "v": 1, "VI": 1, "VII": 1},
     "ii": {"V": 1, "vii": 1},
     "III": {"VI": 1, "iv": 1, "ii": 1},
@@ -70,10 +72,9 @@ chord_chain_minor = {
     "VII": {"III": 1}
 }
 
-def chord_gen(chain, start, length):
-    prev = start[-1:]
-    for i in start:
-        yield i
+def chord_gen(chain, length):
+    progression = []
+    prev = "start"
     for i in xrange(length):
         try:
             choice = random.randint(1, sum(chain[prev].values()))
@@ -81,11 +82,12 @@ def chord_gen(chain, start, length):
             for item, chance in sorted(chain[prev].items()):
                 cumulative += chance
                 if choice <= cumulative:
-                    yield item
-                    prev = prev[-1] + item
+                    progression.append(item)
+                    prev =  item
                     break
         except KeyError:
             break
+    return progression
 
 # Generates a chord list
 def generate_chord_list(number_of_bars):
@@ -116,10 +118,10 @@ chain = {
 }
 
 def struct_gen(chain, start, length):
+    structure = []
     depth = 1
     prev = start[-1:]
-    for i in start:
-        yield i
+    structure.append(start)
     adjusted_length = range(length)
     for i in adjusted_length:
         try:
@@ -129,7 +131,7 @@ def struct_gen(chain, start, length):
                 cumulative += chance
                 if choice <= cumulative:
                     if sorted(chain[prev]).index(item) <= depth:
-                        yield item
+                        structure.append(item)
                         prev = item
                         if sorted(chain[prev]).index(item) == depth:
                             depth += 1
@@ -138,6 +140,7 @@ def struct_gen(chain, start, length):
                     break
         except KeyError:
             break
+    return structure
 
 
 s = "piece_of_shit"
@@ -168,4 +171,4 @@ print tempo + ": " + str(bpm) + " bpm"
 # Test
 print progression_length_bars
 print chords_per_bar
-print "".join(struct_gen(chain, "A", total_sections))
+print struct_gen(chain, "A", total_sections)
