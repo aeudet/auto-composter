@@ -11,6 +11,7 @@ chain = {
 }
 
 def chain_gen(chain, start, length):
+    depth = 1
     prev = start[-1:]
     for i in start:
         yield i
@@ -21,8 +22,11 @@ def chain_gen(chain, start, length):
             for item, chance in sorted(chain[prev].items()):
                 cumulative += chance
                 if choice <= cumulative:
-                    yield item
-                    prev = item
+                    if sorted(chain[prev]).index(item) <= depth:
+                        yield item
+                        prev = item
+                        if sorted(chain[prev]).index(item) == depth:
+                        	depth = depth + 1
                     break
         except KeyError:
             break
