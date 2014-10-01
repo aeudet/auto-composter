@@ -40,34 +40,42 @@ else:
 # Song Chords
 
 progression_length_list = [1] * 9 + [2] * 12 + [4] * 59 + [8] * 13 + [12] * 7
-progression_length_bars = random.choice(progression_length_list)
+#progression_length_bars = random.choice(progression_length_list)
 chords_per_bar_list = [1] * 84 + [2] * 12 + [3] * 2 + [4] * 2
-chords_per_bar = random.choice(chords_per_bar_list)
+#chords_per_bar = random.choice(chords_per_bar_list)
 
-if majorMinor == "major":
-    chord_key = 1
-elif majorMinor == "minor":
-    chord_key = 2
+
+# Generates length of progression
+def progression_length_bars():
+    progression_length_list = [1] * 9 + [2] * 12 + [4] * 59 + [8] * 13 + [12] * 7
+    progression_length_bars = random.choice(progression_length_list)
+    return progression_length_bars
+
+# Generates number of chords per bar
+def chords_per_bar():
+    chords_per_bar_list = [1] * 84 + [2] * 12 + [3] * 2 + [4] * 2
+    chords_per_bar = random.choice(chords_per_bar_list)
+    return chords_per_bar
 
 
 chord_chain_major = {
-    "start": {"I":1, "IV":1, "V":1},
+    "start": {"I":4, "IV":1, "V":1},
     "I": {"I": 1, "ii": 1, "iii": 1, "IV": 1, "V": 1, "vi": 1, "vii": 1},
     "ii": {"V": 1, "vii": 1},
-    "iii": {"vi": 1},
+    "iii": {"vi": 1, "IV": 1, "ii": 1},
     "IV": {"V": 1, "vii": 1},
-    "V": {"I": 1},
+    "V": {"I": 1, "vi": 1},
     "vi": {"ii": 1, "IV": 1},
-    "vii": {"I": 1}
+    "vii": {"I": 1, "vi": 1}
 }
 
 chord_chain_minor = {
-    "start": {"i":1, "iv":1, "v":1},
+    "start": {"i":4, "iv":1, "v":1},
     "i": {"i": 1, "ii": 1, "III": 1, "iv": 1, "v": 1, "VI": 1, "VII": 1},
-    "ii": {"V": 1, "vii": 1},
+    "ii": {"v": 1, "vii": 1},
     "III": {"VI": 1, "iv": 1, "ii": 1},
     "iv": {"ii": 1, "vii": 1, "V": 1, "i": 1},
-    "V": {"i": 1, "VI": 1},
+    "v": {"i": 1, "VI": 1},
     "VI": {"iv": 1, "ii": 1},
     "VII": {"III": 1}
 }
@@ -89,19 +97,8 @@ def chord_gen(chain, length):
             break
     return progression
 
-# Generates a chord list
-def generate_chord_list(number_of_bars):
-    chord_list = []
-    for i in range(number_of_bars):
-        randomChord = random.choice(chordPool)
-        chord_list.append(randomChord)
-    return chord_list
+#print " | ".join(chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, chords_per_bar*progression_length_bars))
 
-
-section_A = {generate_chord_list}
-
-
-print " | ".join(chord_gen(chord_chain_major, chords_per_bar))
 
 # Song Structure
 
@@ -143,9 +140,9 @@ def struct_gen(chain, start, length):
     return structure
 
 
-s = "piece_of_shit"
-l = list(s)
-print l
+#s = "piece_of_shit"
+#l = list(s)
+#print l
 
 # Repeat Number
 
@@ -169,6 +166,4 @@ print key
 print tempo + ": " + str(bpm) + " bpm"
 
 # Test
-print progression_length_bars
-print chords_per_bar
 print struct_gen(chain, "A", total_sections)
