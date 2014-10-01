@@ -1,18 +1,18 @@
 import random
 import string
 
-# Major/Minor
+#### Major/Minor ####
 
 majorMinor = random.choice(["major", "minor"])
 
-# Key Section
+#### Key Section ####
 
 if majorMinor == "major":
     key = random.choice(["C Major", "G Major", "D Major", "A Major", "E Major", "B Major", "F# Major", "Db Major", "Ab Major", "Eb Major", "Bb Major", "F Major"])
 elif majorMinor == "minor":
     key = random.choice(["A Minor", "E Minor", "B Minor", "F# Minor", "C# Minor", "G# Minor", "Eb Minor", "Bb Minor", "F Minor", "C Minor", "G Minor", "D Minor"])
 
-# Tempo Section
+#### Tempo Section ####
 
 bpmRange = range(54,141) # Range of bpm
 bpm = random.choice(bpmRange) # Chosen bpm
@@ -37,13 +37,7 @@ else:
     tempo = "Error"
 
 
-# Song Chords
-
-progression_length_list = [1] * 9 + [2] * 12 + [4] * 59 + [8] * 13 + [12] * 7
-#progression_length_bars = random.choice(progression_length_list)
-chords_per_bar_list = [1] * 84 + [2] * 12 + [3] * 2 + [4] * 2
-#chords_per_bar = random.choice(chords_per_bar_list)
-
+#### Song Chords ####
 
 # Generates length of progression
 def progression_length_bars():
@@ -74,7 +68,7 @@ chord_chain_minor = {
     "i": {"i": 1, "ii": 1, "III": 1, "iv": 1, "v": 1, "VI": 1, "VII": 1},
     "ii": {"v": 1, "vii": 1},
     "III": {"VI": 1, "iv": 1, "ii": 1},
-    "iv": {"ii": 1, "vii": 1, "V": 1, "i": 1},
+    "iv": {"ii": 1, "vii": 1, "v": 1, "i": 1},
     "v": {"i": 1, "VI": 1},
     "VI": {"iv": 1, "ii": 1},
     "VII": {"III": 1}
@@ -97,19 +91,16 @@ def chord_gen(chain, length):
             break
     return progression
 
-#print " | ".join(chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, chords_per_bar*progression_length_bars))
-
-
-# Song Structure
+#### Song Structure ####
 
 total_sections = random.choice(range(2,7))
 
 chain = {
-    "A": {"A": 1, "B": 3, "C": 3, "D": 3, "E": 3, "F": 3},
-    "B": {"A": 3, "B": 1, "C": 3, "D": 3, "E": 3, "F": 3},
-    "C": {"A": 3, "B": 3, "C": 1, "D": 3, "E": 3, "F": 3},
-    "D": {"A": 2, "B": 2, "C": 2, "D": 1, "E": 2, "F": 2},
-    "E": {"A": 3, "B": 3, "C": 3, "D": 3, "E": 1, "F": 3},
+    "A": {"A": 1, "B": 4, "C": 4, "D": 4, "E": 3, "F": 3},
+    "B": {"A": 4, "B": 1, "C": 4, "D": 3, "E": 3, "F": 3},
+    "C": {"A": 4, "B": 4, "C": 1, "D": 4, "E": 3, "F": 3},
+    "D": {"A": 2, "B": 2, "C": 2, "D": 1, "E": 4, "F": 3},
+    "E": {"A": 3, "B": 3, "C": 3, "D": 3, "E": 1, "F": 4},
     "F": {"A": 3, "B": 3, "C": 3, "D": 3, "E": 3, "F": 1},
     "G": {"A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F": 1}
 }
@@ -139,12 +130,7 @@ def struct_gen(chain, start, length):
             break
     return structure
 
-
-#s = "piece_of_shit"
-#l = list(s)
-#print l
-
-# Repeat Number
+#### Repeat Number ####
 
 repeat_list = [2] * 2 + [4] * 10 + [8] * 18 + [12] * 35 + [16] * 20 + [18] * 10 + [24] * 5
 
@@ -157,9 +143,10 @@ elif chords_per_bar >= 8 and chords_per_bar < 12:
 elif chords_per_bar >= 12 and chords_per_bar < 16:
     repeat = repeat_list
 else:
-    tempo = "Error"
+    repeat = "Error"
 
-# Output
+#### Output ####
+
 # Display key
 print key
 # Display tempo
@@ -167,3 +154,13 @@ print tempo + ": " + str(bpm) + " bpm"
 
 # Test
 print struct_gen(chain, "A", total_sections)
+
+overall_structure = struct_gen(chain, "A", total_sections)
+
+section_A = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_B = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_C = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_D = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_E = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_F = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_G = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
