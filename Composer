@@ -44,6 +44,11 @@ progression_length_bars = random.choice(progression_length_list)
 chords_per_bar_list = [1] * 84 + [2] * 12 + [3] * 2 + [4] * 2
 chords_per_bar = random.choice(chords_per_bar_list)
 
+if majorMinor == "major":
+    chord_key = 1
+elif majorMinor == "minor":
+    chord_key = 2
+
 
 chord_chain_major = {
     "I": {"I": 1, "ii": 1, "iii": 1, "IV": 1, "V": 1, "vi": 1, "vii": 1},
@@ -84,12 +89,13 @@ def chord_gen(chain, start, length):
 
 print " | ".join(chord_gen(chord_chain_major, "I", chords_per_bar))
 
-
-# Section "A"
-number_bars_A = progression_length_bars
-number_bars_B = progression_length_bars
-
-A_bars = list()
+# Generates a chord list
+def generate_chord_list(number_of_bars):
+    chord_list = []
+    for i in range(number_of_bars):
+        randomChord = random.choice(chordPool)
+        chord_list.append(randomChord)
+    return chord_list
 
 
 # Song Structure
