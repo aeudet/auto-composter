@@ -2,19 +2,16 @@ import random
 
 # Define the chain.
 chain = {
-    "XX": {"X": 8, "Y": 1, "Z": 1},
-    "XY": {"X": 1, "Y": 2, "Z": 5},
-    "XZ": {"X": 1, "Y": 3, "Z": 2},
-    "YX": {"X": 2, "Y": 4, "Z": 5},
-    "YY": {"X": 4, "Y": 1, "Z": 4},
-    "YZ": {"X": 3, "Y": 2, "Z": 1},
-    "ZX": {"X": 2, "Y": 2, "Z": 4},
-    "ZY": {"X": 1, "Y": 4, "Z": 2},
-    "ZZ": {"X": 4, "Y": 4, "Z": 1}
+    "A": {"A": 1, "B": 2, "C": 2, "D": 2, "E": 2, "F": 2},
+    "B": {"A": 2, "B": 1, "C": 2, "D": 2, "E": 2, "F": 2},
+    "C": {"A": 1, "B": 2, "C": 2, "D": 2, "E": 2, "F": 2},
+    "D": {"A": 1, "B": 2, "C": 2, "D": 2, "E": 2, "F": 2},
+    "E": {"A": 1, "B": 2, "C": 2, "D": 2, "E": 2, "F": 2},
+    "F": {"A": 1, "B": 2, "C": 2, "D": 2, "E": 2, "F": 2}
 }
 
 def chain_gen(chain, start, length):
-    prev = start[-2:]
+    prev = start[-1:]
     for i in start:
         yield i
     for i in xrange(length):
@@ -25,9 +22,9 @@ def chain_gen(chain, start, length):
                 cumulative += chance
                 if choice <= cumulative:
                     yield item
-                    prev = prev[-1] + item
+                    prev = item
                     break
         except KeyError:
             break
 
-print "".join(chain_gen(chain, "ZZ", 40))
+print "".join(chain_gen(chain, "A", 5))
