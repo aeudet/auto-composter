@@ -10,12 +10,13 @@ chain = {
     "F": {"A": 1, "B": 2, "C": 2, "D": 2, "E": 2, "F": 2}
 }
 
-def chain_gen(chain, start, length):
+def struct_gen(chain, start, length):
     depth = 1
     prev = start[-1:]
     for i in start:
         yield i
-    for i in xrange(length):
+    adjusted_length = range(length)
+    for i in adjusted_length:
         try:
             choice = random.randint(1, sum(chain[prev].values()))
             cumulative = 0
@@ -26,9 +27,11 @@ def chain_gen(chain, start, length):
                         yield item
                         prev = item
                         if sorted(chain[prev]).index(item) == depth:
-                        	depth = depth + 1
+                        	depth += 1
+                    else:
+                    	adjusted_length.append(1)
                     break
         except KeyError:
             break
 
-print "".join(chain_gen(chain, "A", 5))
+print "".join(struct_gen(chain, "A", 5))
