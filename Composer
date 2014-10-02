@@ -181,9 +181,6 @@ overall_structure = struct_gen(chain, "A", total_sections)
 # same as above
 
 for song_structure in overall_structure:
-    print "%s" %song_structure
+    print "%s" %song_structure.replace("A", "TEST");
 
-song_structure2 = [w.replace('A', 'TEST'), for w in song_structure]
-
-
-print song_structure2
+print section_A
