@@ -160,27 +160,24 @@ print key
 # Display tempo
 print tempo + ": " + str(bpm) + " bpm"
 
-# Test
-print struct_gen(chain, "A", total_sections)
-
-
-
-#for i in range(progression_length):
-#total number of chords += chords_per_bar()
-
-section_A = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
-section_B = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
-section_C = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
-section_D = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
-section_E = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
-section_F = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
-section_G = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
-
+progressions = []
+for i in xrange(7):
+    progressions.append(chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar()))
 
 overall_structure = struct_gen(chain, "A", total_sections)
+print overall_structure
+
+overall_structure_progressions = []
 # same as above
+alphabet = list(string.ascii_uppercase)
+for section in overall_structure:
+	for i in xrange(7):
+		if section == alphabet[i]:
+			overall_structure_progressions.append(progressions[i])
+			break
 
-for song_structure in overall_structure:
-    print "%s" %song_structure.replace("A", "TEST");
+for i in xrange(7):
+	print alphabet[i]
+	print progressions[i]
 
-print section_A
+print overall_structure_progressions
