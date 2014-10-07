@@ -1,21 +1,22 @@
 import random
 import string
+import copy
 
 #### Major/Minor ####
 
-majorMinor = random.choice(["major", "minor"])
+major_minor = random.choice(["major", "minor"])
 
 #### Key Section ####
 
-if majorMinor == "major":
+if major_minor == "major":
     key = random.choice(["C Major", "G Major", "D Major", "A Major", "E Major", "B Major", "F# Major", "Db Major", "Ab Major", "Eb Major", "Bb Major", "F Major"])
-elif majorMinor == "minor":
+elif major_minor == "minor":
     key = random.choice(["A Minor", "E Minor", "B Minor", "F# Minor", "C# Minor", "G# Minor", "Eb Minor", "Bb Minor", "F Minor", "C Minor", "G Minor", "D Minor"])
 
 #### Tempo Section ####
 
-bpmRange = range(54,141) # Range of bpm
-bpm = random.choice(bpmRange) # Chosen bpm
+bpm_range = range(54,141) # Range of bpm
+bpm = random.choice(bpm_range) # Chosen bpm
     
 if bpm >= 54 and bpm < 65:
     tempo = "Adagio"
@@ -41,23 +42,20 @@ else:
 
 # Generates length of progression
 def progression_length_bars():
-    progression_length_list = [1] * 9 + [2] * 12 + [4] * 59 + [8] * 13 + [12] * 7
-    progression_length_bars = random.choice(progression_length_list)
+    progression_length_bars = random.choice([1] * 9 + [2] * 12 + [4] * 59 + [8] * 13 + [12] * 7)
     return progression_length_bars
 
-# Generates number of chords per bar
+# Generates number of chords for one bar
 def chords_per_bar():
-    chords_per_bar_list = [1] * 84 + [2] * 12 + [3] * 2 + [4] * 2
-    chords_per_bar = random.choice(chords_per_bar_list)
+    chords_per_bar = random.choice([1] * 84 + [2] * 12 + [3] * 2 + [4] * 2)
     return chords_per_bar
 
-# Generates list of chords
-def cpb_lister_adder(chord_amount):
+# Generates list of chords per bar for a number_of_bars
+def chords_per_bar_list(number_of_bars):
     chord_list = []
-    for i in range(chord_amount):
-        chord_amount = chords_per_bar()
-        progression.append(chord_list)
-    return chord_amount
+    for i in xrange(number_of_bars):
+        chord_list.append(chords_per_bar())
+    return chord_list
 
 
 chord_chain_major = {
@@ -160,9 +158,26 @@ print key
 # Display tempo
 print tempo + ": " + str(bpm) + " bpm"
 
+chords_bar_list = []
+progression_length = []
 progressions = []
 for i in xrange(7):
-    progressions.append(chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar()))
+	progression_length.append(progression_length_bars())
+	chords_bar_list.append(chords_per_bar_list(progression_length[-1]))
+	print sum(chords_bar_list[-1])
+	progressions.append(chord_gen(chord_chain_major if major_minor == "major" else chord_chain_minor, sum(chords_bar_list[-1])))
+	print progressions[-1]
+
+print chords_bar_list
+print progression_length
+
+progressions_with_bars = copy.deepcopy(progressions)
+for i in xrange(7):
+	cumulative = 0
+	for bar in xrange(progression_length[i]):
+		cumulative += chords_bar_list[i][bar]
+		progressions_with_bars[i].insert(cumulative, "|")
+		cumulative += 1
 
 overall_structure = struct_gen(chain, "A", total_sections)
 print overall_structure
@@ -173,11 +188,12 @@ alphabet = list(string.ascii_uppercase)
 for section in overall_structure:
 	for i in xrange(7):
 		if section == alphabet[i]:
-			overall_structure_progressions.append(progressions[i])
+			overall_structure_progressions.append(progressions_with_bars[i])
 			break
 
 for i in xrange(7):
 	print alphabet[i]
-	print progressions[i]
+	print " ".join(progressions_with_bars[i])
 
-print overall_structure_progressions
+for i in xrange(len(overall_structure)):
+	print overall_structure[i] + ": | " + " ".join(overall_structure_progressions[i])
