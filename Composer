@@ -181,14 +181,14 @@ for section in overall_structure:
 		if section == alphabet[i]:
 			overall_structure_progressions.append(progressions_with_bars[i])
 			break
-
-for i in xrange(7):
-	print alphabet[i] + ": | " + " ".join(progressions_with_bars[i])
-
 # Display key
 print key
 # Display tempo
 print tempo + ": " + str(bpm) + " bpm"
+
+for i in xrange(7):
+	print alphabet[i] + ": | " + " ".join(progressions_with_bars[i])
+
 print overall_structure
 for i in xrange(len(overall_structure)):
 	print overall_structure[i] + ": | " + " ".join(overall_structure_progressions[i])
