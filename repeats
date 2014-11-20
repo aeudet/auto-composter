@@ -1,0 +1,188 @@
+import random
+import string
+
+#### Major/Minor ####
+
+majorMinor = random.choice(["major", "minor"])
+
+#### Key Section ####
+
+if majorMinor == "major":
+    key = random.choice(["C Major", "G Major", "D Major", "A Major", "E Major", "B Major", "F# Major", "Db Major", "Ab Major", "Eb Major", "Bb Major", "F Major"])
+elif majorMinor == "minor":
+    key = random.choice(["A Minor", "E Minor", "B Minor", "F# Minor", "C# Minor", "G# Minor", "Eb Minor", "Bb Minor", "F Minor", "C Minor", "G Minor", "D Minor"])
+
+#### Tempo Section ####
+
+bpmRange = range(54,141) # Range of bpm
+bpm = random.choice(bpmRange) # Chosen bpm
+    
+if bpm >= 54 and bpm < 65:
+    tempo = "Adagio"
+elif bpm >= 65 and bpm < 75:
+    tempo = "Adagietto"
+elif bpm >=75 and bpm < 84:
+    tempo = "Andantino"
+elif bpm >=84 and bpm < 90:
+    tempo = "Andante"
+elif bpm >=90 and bpm < 100:
+    tempo = "Andante Moderato"
+elif bpm >=100 and bpm < 112:
+    tempo = "Moderato"
+elif bpm >=112 and bpm < 116:
+    tempo = "Allegro Moderato"
+elif bpm >=116 and bpm < 141:
+    tempo = "Allegro"
+else:
+    tempo = "Error"
+
+
+#### Song Chords ####
+
+# Generates length of progression
+def progression_length_bars():
+    progression_length_list = [1] * 9 + [2] * 12 + [4] * 59 + [8] * 13 + [12] * 7
+    progression_length_bars = random.choice(progression_length_list)
+    return progression_length_bars
+
+# Generates number of chords per bar
+def chords_per_bar():
+    chords_per_bar_list = [1] * 84 + [2] * 12 + [3] * 2 + [4] * 2
+    chords_per_bar = random.choice(chords_per_bar_list)
+    return chords_per_bar
+
+# Generates list of chords
+def cpb_lister_adder(chord_amount):
+    chord_list = []
+    for i in range(chord_amount):
+        chord_amount = chords_per_bar()
+        progression.append(chord_list)
+    return chord_amount
+
+
+chord_chain_major = {
+    "start": {"I":4, "IV":1, "V":1},
+    "I": {"I": 1, "ii": 1, "iii": 1, "IV": 1, "V": 1, "vi": 1, "vii": 1},
+    "ii": {"V": 1, "vii": 1},
+    "iii": {"vi": 1, "IV": 1, "ii": 1},
+    "IV": {"V": 1, "vii": 1},
+    "V": {"I": 1, "vi": 1},
+    "vi": {"ii": 1, "IV": 1},
+    "vii": {"I": 1, "vi": 1}
+}
+
+chord_chain_minor = {
+    "start": {"i":4, "iv":1, "v":1},
+    "i": {"i": 1, "ii": 1, "III": 1, "iv": 1, "v": 1, "VI": 1, "VII": 1},
+    "ii": {"v": 1, "vii": 1},
+    "III": {"VI": 1, "iv": 1, "ii": 1},
+    "iv": {"ii": 1, "vii": 1, "v": 1, "i": 1},
+    "v": {"i": 1, "VI": 1},
+    "VI": {"iv": 1, "ii": 1},
+    "VII": {"III": 1}
+}
+
+def chord_gen(chain, length):
+    progression = []
+    prev = "start"
+    for i in xrange(length):
+        try:
+            choice = random.randint(1, sum(chain[prev].values()))
+            cumulative = 0
+            for item, chance in sorted(chain[prev].items()):
+                cumulative += chance
+                if choice <= cumulative:
+                    progression.append(item)
+                    prev =  item
+                    break
+        except KeyError:
+            break
+    return progression
+
+#### Song Structure ####
+
+total_sections = random.choice(range(2,7))
+
+chain = {
+    "A": {"A": 1, "B": 4, "C": 4, "D": 4, "E": 3, "F": 3},
+    "B": {"A": 4, "B": 1, "C": 4, "D": 3, "E": 3, "F": 3},
+    "C": {"A": 4, "B": 4, "C": 1, "D": 4, "E": 3, "F": 3},
+    "D": {"A": 2, "B": 2, "C": 2, "D": 1, "E": 4, "F": 3},
+    "E": {"A": 3, "B": 3, "C": 3, "D": 3, "E": 1, "F": 4},
+    "F": {"A": 3, "B": 3, "C": 3, "D": 3, "E": 3, "F": 1},
+    "G": {"A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F": 1}
+}
+
+def struct_gen(chain, start, length):
+    structure = []
+    depth = 1
+    prev = start[-1:]
+    structure.append(start)
+    adjusted_length = range(length)
+    for i in adjusted_length:
+        try:
+            choice = random.randint(1, sum(chain[prev].values()))
+            cumulative = 0
+            for item, chance in sorted(chain[prev].items()):
+                cumulative += chance
+                if choice <= cumulative:
+                    if sorted(chain[prev]).index(item) <= depth:
+                        structure.append(item)
+                        prev = item
+                        if sorted(chain[prev]).index(item) == depth:
+                            depth += 1
+                    else:
+                        adjusted_length.append(1)
+                    break
+        except KeyError:
+            break
+    return structure
+
+#### Repeat Number ####
+
+repeat_list = [2] * 2 + [4] * 10 + [8] * 18 + [12] * 35 + [16] * 20 + [18] * 10 + [24] * 5
+
+if chords_per_bar >= 1 and chords_per_bar < 4:
+    repeat = repeat_list * 2
+elif chords_per_bar >= 4 and chords_per_bar < 8:
+    repeat = repeat_list
+elif chords_per_bar >= 8 and chords_per_bar < 12:
+    repeat = repeat_list
+elif chords_per_bar >= 12 and chords_per_bar < 16:
+    repeat = repeat_list
+else:
+    repeat = "Error"
+
+#### Output ####
+
+# Display key
+print key
+# Display tempo
+print tempo + ": " + str(bpm) + " bpm"
+
+# Test
+print struct_gen(chain, "A", total_sections)
+
+
+
+#for i in range(progression_length):
+#total number of chords += chords_per_bar()
+
+section_A = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_B = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_C = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_D = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_E = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_F = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+section_G = chord_gen(chord_chain_major if majorMinor == "major" else chord_chain_minor, progression_length_bars()*chords_per_bar())
+
+section_A2 = " | ".join(section_A)
+section_B2 = " | ".join(section_B)
+section_C2 = " | ".join(section_C)
+
+
+overall_structure = struct_gen(chain, "A", total_sections)
+for song_structure in overall_structure:
+    print "%s" %song_structure.replace("A", section_A2).replace("B", section_B2).replace("C", section_C2)
+
+#print section_A, section_B, section_C
