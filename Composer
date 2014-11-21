@@ -140,28 +140,31 @@ def struct_gen(chain, start, length):
 
 #### Repeat Number ####
 
-repeat_list = [2] * 2 + [4] * 10 + [8] * 18 + [12] * 35 + [16] * 20 + [18] * 10 + [24] * 5
+def generate_repeats(chords_per_bar):
+	repeat_list = [2] * 2 + [4] * 10 + [8] * 18 + [12] * 35 + [16] * 20 + [18] * 10 + [24] * 5
 
-if chords_per_bar >= 1 and chords_per_bar < 4:
-	repeat = repeat_list * 2
-elif chords_per_bar >= 4 and chords_per_bar < 8:
-	repeat = repeat_list
-elif chords_per_bar >= 8 and chords_per_bar < 12:
-	repeat = repeat_list
-elif chords_per_bar >= 12 and chords_per_bar < 16:
-	repeat = repeat_list
-else:
-	repeat = "Error"
+	if chords_per_bar >= 1 and chords_per_bar < 4:
+		return random.choice(repeat_list) * 2
+	elif chords_per_bar >= 4 and chords_per_bar < 8:
+		return random.choice(repeat_list)
+	elif chords_per_bar >= 8 and chords_per_bar < 12:
+		return random.choice(repeat_list)
+	elif chords_per_bar >= 12 and chords_per_bar < 16:
+		return random.choice(repeat_list)
+	else:
+		return "Error"
 
 #### Output ####
 
 chords_bar_list = []
 progression_length = []
 progressions = []
+repeats = []
 for i in xrange(7):
 	progression_length.append(progression_length_bars())
 	chords_bar_list.append(chords_per_bar_list(progression_length[-1]))
 	progressions.append(chord_gen(chord_chain_major if major_minor == "major" else chord_chain_minor, sum(chords_bar_list[-1])))
+	repeats.append(generate_repeats(len(chords_bar_list[i])))
 
 progressions_with_bars = copy.deepcopy(progressions)
 for i in xrange(7):
@@ -171,8 +174,10 @@ for i in xrange(7):
 		progressions_with_bars[i].insert(cumulative, "|")
 		cumulative += 1
 
+
 overall_structure = struct_gen(chain, "A", total_sections)
 
+overall_structure_repeats = []
 overall_structure_progressions = []
 # same as above
 alphabet = list(string.ascii_uppercase)
@@ -180,6 +185,7 @@ for section in overall_structure:
 	for i in xrange(7):
 		if section == alphabet[i]:
 			overall_structure_progressions.append(progressions_with_bars[i])
+			overall_structure_repeats.append(repeats[i])
 			break
 # Display key
 print key
@@ -187,8 +193,8 @@ print key
 print tempo + ": " + str(bpm) + " bpm"
 
 for i in xrange(7):
-	print alphabet[i] + ": | " + " ".join(progressions_with_bars[i])
+	print alphabet[i] + ": | " + " ".join(progressions_with_bars[i]) + " x " + str(repeats[i])
 
 print overall_structure
 for i in xrange(len(overall_structure)):
-	print overall_structure[i] + ": | " + " ".join(overall_structure_progressions[i])
+	print overall_structure[i] + ": | " + " ".join(overall_structure_progressions[i]) + " x " + str(overall_structure_repeats[i])
