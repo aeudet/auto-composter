@@ -1,0 +1,30 @@
+REPEATS
+
+We generate a repeat unique repeat value for each section of a song.
+
+ex. (A B A C A)
+
+Each section, even the multiple "A" sections get a unique repeat value. This value is printed at the end of each section.
+
+THE LOGIC:
+
+- First, we generate a base value. The value is selected from a container with numbers ranging from 2 to 24. The values will be weighted so the extreme ones are less frequent.
+
+
+- Next, we look at how many bars long the progression is for that section of the song. If a progression is a low amount of bars within a certain range, we select from another container [Repeat_Modifier] with weighted values specific to that number of bars in progression.
+
+
+- Finally, we take the [Base_Value] + [Repeat_Modifier] to get a [Total_Repeats]
+
+
+Example:
+
+Base value = 24
+Repeat modifier = 8
+
+[24] + [8] = 32
+
+
+
+
+
