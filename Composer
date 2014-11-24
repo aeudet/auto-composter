@@ -15,7 +15,8 @@ elif scale == "minor":
 
 #### Tempo Section ####
 
-bpm = random.choice(range(54,141)) # Chosen bpm
+#bpm = random.choice(range(54,141)) # Chosen bpm
+bpm = random.triangular(54,141,100) # Chosen bpm
 	
 if bpm >= 54 and bpm < 65:
 	tempo = "Adagio"
@@ -41,13 +42,13 @@ else:
 
 # Generates length of progression
 def generate_progression_length():
-	return random.choice([1] * 9 + [2] * 12 + [4] * 59 + [8] * 13 + [12] * 7)
+	return random.choice([1] * 3 + [2] * 25 + [4] * 59 + [8] * 4)
 
 # Generates list of chords per bar for a number_of_bars
 def generate_chords_per_bar(number_of_bars):
 	chord_list = []
 	for i in xrange(number_of_bars):
-		chord_list.append(random.choice([1] * 84 + [2] * 12 + [3] * 2 + [4] * 2))
+		chord_list.append(random.choice([1] * 84 + [2] * 19 + [3] * 2 + [4] * 1))
 	return chord_list
 
 
@@ -133,18 +134,18 @@ def generate_structure(chain, start, length):
 
 #### Repeat Number ####
 
-def generate_repeats(bars_per_progression):
-	repeat_list = [2] * 2 + [4] * 10 + [8] * 18 + [12] * 35 + [16] * 20 + [18] * 10 + [24] * 5
+def generate_repeat_modifier_low():
+	return random.choice([12] * 11 + [16] * 20 + [18] * 12 + [24] * 6 + [32] * 2)
 
+def generate_repeat_modifier_hi():
+	return random.choice([2] * 10 + [4] * 15 + [8] * 18 + [12] * 5)
+	
+def generate_repeats(bars_per_progression):
+	repeat_list = [2] * 3 + [4] * 18 + [8] * 29 + [12] * 33 + [16] * 28 + [24] * 4
 	if bars_per_progression >= 1 and bars_per_progression < 4:
-		return random.choice(repeat_list) * 2
-	elif bars_per_progression >= 4 and bars_per_progression < 8:
-		return random.choice(repeat_list)
-	elif bars_per_progression >= 8 and bars_per_progression < 12:
-		return random.choice(repeat_list)
-	elif bars_per_progression >= 12 and bars_per_progression < 16:
-		return random.choice(repeat_list)
-	else:
+		return random.choice(repeat_list) + generate_repeat_modifier_low()
+	elif bars_per_progression >= 4 and bars_per_progression <= 8:
+		return random.choice(repeat_list) + + generate_repeat_modifier_hi()
 		return "Error"
 
 #### Output ####
