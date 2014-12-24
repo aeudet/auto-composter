@@ -16,7 +16,7 @@ elif scale == "minor":
 #### Tempo Section ####
 
 #bpm = random.choice(range(54,141)) # Chosen bpm
-bpm = random.triangular(54,141,100) # Chosen bpm
+bpm = int(random.triangular(54,141,120)) # Chosen bpm
 	
 if bpm >= 54 and bpm < 65:
 	tempo = "Adagio"
@@ -54,23 +54,23 @@ def generate_chords_per_bar(number_of_bars):
 
 chord_chain_major = {
 	"start": {"I":4, "IV":1, "V":1},
-	"I": {"I": 1, "ii": 1, "iii": 1, "IV": 1, "V": 1, "vi": 1, "vii": 1},
-	"ii": {"V": 1, "vii": 1},
+	"I": {"I": 1, "ii": 1, "iii": 1, "IV": 1, "V": 1, "vi": 1, "vii": 0},
+	"ii": {"V": 1, "vii": 0},
 	"iii": {"vi": 1, "IV": 1, "ii": 1},
-	"IV": {"V": 1, "vii": 1},
+	"IV": {"V": 1, "vii": 0},
 	"V": {"I": 1, "vi": 1},
 	"vi": {"ii": 1, "IV": 1},
-	"vii": {"I": 1, "vi": 1}
+	#"vii": {"I": 1, "vi": 1}
 }
 
 chord_chain_minor = {
 	"start": {"i":4, "iv":1, "v":1},
-	"i": {"i": 1, "ii": 1, "III": 1, "iv": 1, "v": 1, "VI": 1, "VII": 1},
-	"ii": {"v": 1, "VII": 1},
-	"III": {"VI": 1, "iv": 1, "ii": 1},
-	"iv": {"ii": 1, "VII": 1, "v": 1, "i": 1},
+	"i": {"i": 1, "ii": 0, "III": 1, "iv": 1, "v": 1, "VI": 1, "VII": 1},
+	#"ii": {"v": 1, "VII": 1},
+	"III": {"VI": 1, "iv": 1, "ii": 0},
+	"iv": {"ii": 0, "VII": 1, "v": 1, "i": 1},
 	"v": {"i": 1, "VI": 1},
-	"VI": {"iv": 1, "ii": 1},
+	"VI": {"iv": 1, "ii": 0},
 	"VII": {"III": 1}
 }
 
@@ -111,7 +111,7 @@ def generate_structure(chain, start, length):
 	depth = 1
 	prev = start[-1:]
 	structure.append(start)
-	adjusted_length = range(length)
+	adjusted_length = range(length - 1)
 	for i in adjusted_length:
 		try:
 			choice = random.randint(1, sum(chain[prev].values()))
@@ -133,20 +133,28 @@ def generate_structure(chain, start, length):
 	return structure
 
 #### Repeat Number ####
-
-def generate_repeat_modifier_low():
-	return random.choice([12] * 11 + [16] * 20 + [18] * 12 + [24] * 6 + [32] * 2)
-
-def generate_repeat_modifier_hi():
-	return random.choice([2] * 10 + [4] * 15 + [8] * 18 + [12] * 5)
 	
 def generate_repeats(bars_per_progression):
-	repeat_list = [2] * 3 + [4] * 18 + [8] * 29 + [12] * 33 + [16] * 28 + [24] * 4
-	if bars_per_progression >= 1 and bars_per_progression < 4:
-		return random.choice(repeat_list) + generate_repeat_modifier_low()
-	elif bars_per_progression >= 4 and bars_per_progression <= 8:
-		return random.choice(repeat_list) + + generate_repeat_modifier_hi()
-		return "Error"
+	repeat_base = random.choice([2] * 3 + [4] * 18 + [8] * 29 + [12] * 33 + [16] * 28 + [24] * 4)
+	#repeat_modifier_low = random.choice([12] * 11 + [16] * 20 + [18] * 12 + [24] * 6 + [32] * 2)
+	#repeat_modifier_hi = random.choice([2] * 10 + [4] * 15 + [8] * 18 + [12] * 5)
+	#if bars_per_progression >= 1 and bars_per_progression < 4:
+	#	return repeats + repeat_modifier_low
+	#elif bars_per_progression >= 4 and bars_per_progression <= 8:
+	#	return repeats + repeat_modifier_hi
+	if bpm >= 54 and bpm < 84:
+		repeat_modifier = random.choice([0] + [2])
+	elif bpm >= 84 and bpm < 100:
+		repeat_modifier = random.choice([4] + [6])
+	elif bpm >= 100 and bpm < 116:
+		repeat_modifier = random.choice([6] + [8])
+	elif bpm >= 116 and bpm < 141:
+		repeat_modifier = random.choice([8] + [10] + [12])
+	repeats = (repeat_base + repeat_modifier)/bars_per_progression	
+	if repeats == 0:
+		return 1
+	else:
+		return repeats
 
 #### Output ####
 
@@ -178,6 +186,7 @@ for section in overall_structure:
 			overall_structure_progressions.append(progressions_with_bars[i])
 			overall_structure_repeats.append(generate_repeats(len(chords_per_bar[i])))
 			break
+
 # Display key
 print key
 # Display tempo
@@ -189,3 +198,13 @@ for i in xrange(7):
 print overall_structure
 for i in xrange(len(overall_structure)):
 	print overall_structure[i] + ": | " + " ".join(overall_structure_progressions[i]) + " x " + str(overall_structure_repeats[i])
+	
+# Display total time
+time = 0
+for section in xrange(len(overall_structure)):
+	for progression in xrange(7):
+		if overall_structure[section] == alphabet[progression]:
+			time += progression_lengths[progression] * overall_structure_repeats[section]
+			break
+time = (time * 4) / float(bpm)
+print str(round(time, 2)) + " minutes"
