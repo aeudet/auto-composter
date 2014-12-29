@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import random
 import string
 import copy
@@ -44,6 +46,10 @@ else:
 def generate_progression_length():
 	return random.choice([1] * 3 + [2] * 25 + [4] * 59 + [8] * 4)
 
+
+def generate_section_length():
+	return random.choice(range(2,7))
+
 # Generates list of chords per bar for a number_of_bars
 def generate_chords_per_bar(number_of_bars):
 	chord_list = []
@@ -74,6 +80,7 @@ chord_chain_minor = {
 	"VII": {"III": 1}
 }
 
+# Generates a chord progression of specified length
 def generate_progression(chain, length):
 	progression = []
 	prev = "start"
@@ -94,18 +101,17 @@ def generate_progression(chain, length):
 
 #### Song Structure ####
 
-total_sections = random.choice(range(2,7))
-
 chain = {
-	"A": {"A": 1, "B": 4, "C": 4, "D": 4, "E": 3, "F": 3},
-	"B": {"A": 4, "B": 1, "C": 4, "D": 3, "E": 3, "F": 3},
-	"C": {"A": 4, "B": 4, "C": 1, "D": 4, "E": 3, "F": 3},
-	"D": {"A": 2, "B": 2, "C": 2, "D": 1, "E": 4, "F": 3},
-	"E": {"A": 3, "B": 3, "C": 3, "D": 3, "E": 1, "F": 4},
-	"F": {"A": 3, "B": 3, "C": 3, "D": 3, "E": 3, "F": 1},
-	"G": {"A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F": 1}
+	"A": {"A": 1, "B": 4, "C": 4, "D": 4, "E": 3, "F": 3, "G": 3},
+	"B": {"A": 4, "B": 1, "C": 4, "D": 3, "E": 3, "F": 3, "G": 3},
+	"C": {"A": 4, "B": 4, "C": 1, "D": 4, "E": 3, "F": 3, "G": 3},
+	"D": {"A": 2, "B": 2, "C": 2, "D": 1, "E": 4, "F": 3, "G": 3},
+	"E": {"A": 3, "B": 3, "C": 3, "D": 3, "E": 1, "F": 4, "G": 3},
+	"F": {"A": 3, "B": 3, "C": 3, "D": 3, "E": 3, "F": 1, "G": 3},
+	"G": {"A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F": 1, "G": 1}
 }
 
+# Generates a song structure of specified length
 def generate_structure(chain, start, length):
 	structure = []
 	depth = 1
@@ -134,14 +140,9 @@ def generate_structure(chain, start, length):
 
 #### Repeat Number ####
 	
+# Generates the number of times a section is repeated
 def generate_repeats(bars_per_progression):
 	repeat_base = random.choice([2] * 3 + [4] * 18 + [8] * 29 + [12] * 33 + [16] * 28 + [24] * 4)
-	#repeat_modifier_low = random.choice([12] * 11 + [16] * 20 + [18] * 12 + [24] * 6 + [32] * 2)
-	#repeat_modifier_hi = random.choice([2] * 10 + [4] * 15 + [8] * 18 + [12] * 5)
-	#if bars_per_progression >= 1 and bars_per_progression < 4:
-	#	return repeats + repeat_modifier_low
-	#elif bars_per_progression >= 4 and bars_per_progression <= 8:
-	#	return repeats + repeat_modifier_hi
 	if bpm >= 54 and bpm < 84:
 		repeat_modifier = random.choice([0] + [2])
 	elif bpm >= 84 and bpm < 100:
@@ -156,8 +157,9 @@ def generate_repeats(bars_per_progression):
 	else:
 		return repeats
 
-#### Output ####
+#### Structure ####
 
+# Generate progressions for each potential section
 chords_per_bar = []
 progression_lengths = []
 progressions = []
@@ -166,19 +168,21 @@ for i in xrange(7):
 	chords_per_bar.append(generate_chords_per_bar(progression_lengths[-1]))
 	progressions.append(generate_progression(chord_chain_major if scale == "major" else chord_chain_minor, sum(chords_per_bar[-1])))
 
+# Makes a copy of the chord progressions with bar lines inserted
 progressions_with_bars = copy.deepcopy(progressions)
 for i in xrange(7):
 	cumulative = 0
-	for bar in xrange(progression_lengths[i]):
+	for bar in xrange(progression_lengths[i] - 1):
 		cumulative += chords_per_bar[i][bar]
 		progressions_with_bars[i].insert(cumulative, "|")
 		cumulative += 1
 
-overall_structure = generate_structure(chain, "A", total_sections)
+# Generate overall structure
+overall_structure = generate_structure(chain, "A", generate_section_length())
 
+# Fill in song structure with the appropriate chord progressions and determines section repeats
 overall_structure_repeats = []
 overall_structure_progressions = []
-# same as above
 alphabet = list(string.ascii_uppercase)
 for section in overall_structure:
 	for i in xrange(7):
@@ -186,6 +190,8 @@ for section in overall_structure:
 			overall_structure_progressions.append(progressions_with_bars[i])
 			overall_structure_repeats.append(generate_repeats(len(chords_per_bar[i])))
 			break
+
+#### Output ####
 
 # Display key
 print key
@@ -197,14 +203,14 @@ for i in xrange(7):
 
 print overall_structure
 for i in xrange(len(overall_structure)):
-	print overall_structure[i] + ": | " + " ".join(overall_structure_progressions[i]) + " x " + str(overall_structure_repeats[i])
+	print overall_structure[i] + ": ║: " + " ".join(overall_structure_progressions[i]) + " :║ x " + str(overall_structure_repeats[i])
 	
-# Display total time
+# Display total song duration 
 time = 0
 for section in xrange(len(overall_structure)):
 	for progression in xrange(7):
 		if overall_structure[section] == alphabet[progression]:
 			time += progression_lengths[progression] * overall_structure_repeats[section]
 			break
-time = (time * 4) / float(bpm)
-print str(round(time, 2)) + " minutes"
+time = int(round((time * 4 * 60) / float(bpm)))
+print "{:0>2d}:{:0>2d}".format(time / 60, time % 60)
