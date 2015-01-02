@@ -100,6 +100,8 @@ chord_chain_minor = {
 # NEEDS TO REFER TO THE HOME KEY WHEN BUILDING THE PROGRESSION
 # ALSO INDIVIDUAL CHORD CHECK FOR MODULATION OR EMBELLISHMENT
 
+#vvvvvvvvvv
+
 def generate_progression(chain, length):
 	progression = []
 	prev = "start"
@@ -160,10 +162,26 @@ def generate_structure(chain, start, length):
 #### Modulation ####
 
 def section_modulation_check():
-	return random.choice([0] * 3 + [1] * 25) # or some boolean shit
+	return random.choice([0] * 3 + [1] * 25) # or some boolean shit. True false 
 
 def chord_modulation_check():
-	return random.choice([0] * 3 + [1] * 25) # or some boolean shit
+	return random.choice([0] * 3 + [1] * 25) # or some boolean shit. True false
+
+def generate_modulation_type():
+	return random.choice([0] * 3 + [1] * 25) # or some boolean shit. True false
+
+def generate_modulation_amount():
+	return random.choice([1] * 1 + [-1] * 1 + [2] * 1 + [-2] * 1 + [12312312312]) # last is random key
+
+#### EMBELLISHMENTS ####
+
+def chord_embellish_check():
+	return random.choice([0] * 3 + [1] * 25) # or some boolean shit. True False
+
+def generate_embellish_type():
+	return random.choice(["7"] * 3 + ["sus4"] * 25 + ["5"] * 25) # Place at end of chord.	
+
+
 
 #### Repeat Number ####
 	
