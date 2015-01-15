@@ -1,0 +1,4 @@
+- [ ] Alter final chord for better musical resolution
+- [ ] Make Major mode more common than Minor mode
+- [ ] Add meter
+- [ ] Add weird chords with appropriate odds
