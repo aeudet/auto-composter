@@ -4,3 +4,4 @@
 - [ ] Make Major mode more common than Minor mode
 - [ ] Add meter
 - [ ] Add weird chords with appropriate odds
+- [ ] Incorporate modulation
