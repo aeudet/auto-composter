@@ -7,3 +7,4 @@
 - [ ] Incorporate modulation
 - [ ] Fix case where generated penultimate chord is a "v" or "V" and the last chord is also a "v" or "V"
 - [ ] Display actual chord notes alongside roman symbols
+- [ ] Splice bridge sections into structure.
