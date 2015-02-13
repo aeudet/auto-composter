@@ -9,6 +9,7 @@ WHEN TO MODULATE CHECK:
 	- neighbour key modulation
 	- near key modulation, foreign key modulation
 
+
 - Do modulation check for each instance of each letter
 	
 	- Truck Driver
