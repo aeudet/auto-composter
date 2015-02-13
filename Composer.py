@@ -39,7 +39,6 @@ elif bpm >=116 and bpm < 141:
 else:
 	tempo = "Error"
 
-
 #### Song Chords ####
 
 # Generates length of progression
@@ -56,7 +55,6 @@ def generate_chords_per_bar(number_of_bars):
 	for i in xrange(number_of_bars):
 		chord_list.append(random.choice([1] * 84 + [2] * 19 + [3] * 2 + [4] * 1))
 	return chord_list
-
 
 chord_chain_major = {
 	"start": {"I":4, "IV":1, "V":1},
