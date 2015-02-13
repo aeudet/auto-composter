@@ -1,18 +1,19 @@
 - Home key set at start
 
+WHEN TO MODULATE CHECK:
 - Do modulation check on each letter (A,B,C,D,etc)
-	if yes, modulation every instance of letter in relation to home key
-	1 in 8 chance to modulate on better
-	parallel key modulation
-	relative key modulation
-	neighbour key modulation
-	near key modulation, foreign key modulation
+	- if yes, modulation every instance of letter in relation to home key
+	- 1 in 8 chance to modulate on better
+	- parallel key modulation
+	- relative key modulation
+	- neighbour key modulation
+	- near key modulation, foreign key modulation
 
 - Do modulation check for each instance of each letter
 	
-	Truck Driver
-	1 in 20 chance modulation
-	markov chain check for odds update and type 
+	- Truck Driver
+	- 1 in 20 chance modulation
+	- markov chain check for odds update and type 
 
 
 TYPES:
