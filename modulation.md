@@ -18,13 +18,34 @@
 TYPES:
 
 - PARALLEL KEY MODULATION
+	- Shift Major/Minor key on same tonic root
+	- May require last chord of previous to be set to a picot chord
+
+
 - RELATIVE KEY MODULATION
+	- Shift from Major to Minor, or vice versa to the relative key of opposite mode. 
+	- For Major key, take tonic and move down 3 semi-tones. For Minor, take root and move up 3 semi-tones. 
+	- The vi in major is tonic in relative minor
+	- Use pre-tonic (V, IV, ii) chord to get back to Major from Minor
+
 - NEIGHBOUR KEY MODULATION
-- Foreign-Key Modulation
+	- Shift to keys next to home key in circle of fifths.
+	- VARIANT: Shift to neighbour and change mode
+
 - Near-Key Modulation
-- Parallel Minor/Major Switch 
+	- Shift from home key to key 4 steps away
+	- Shift from home key to key 5 steps away
+
+
+- Foreign-Key Modulation
+	
 
 - KEY SHIFT (half or whole step up or down)
+
+
+End chord of previous section may have to be altered to a pivot chord in case of modulation
+
+Splice bridge section into structure
 
 
 
