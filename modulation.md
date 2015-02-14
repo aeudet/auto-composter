@@ -1,23 +1,25 @@
 - Home key set at start
 
 WHEN TO MODULATE CHECK:
-- Do modulation check on each letter (A,B,C,D,etc)
+- Modulation check for each letter (A,B,C,D,etc) Will effect every application of letter.
 	- if yes, modulation every instance of letter in relation to home key
-	- 1 in 8 chance to modulate on better
+	- 1 in 8 chance to modulate on letter
+	- Determine type of modulation
 	- parallel key modulation
 	- relative key modulation
 	- neighbour key modulation
-	- near key modulation, foreign key modulation
+	- near key \ foreign key modulation
 
 
-- Do modulation check for each instance of each letter
+- Modulation check for each instance of letter
 	
-	- Truck Driver
+	- Truck driver modulation
+	- Shift up or down a certain amount of semitones
 	- 1 in 20 chance modulation
 	- markov chain check for odds update and type 
 
 
-TYPES:
+TYPES of Modulation:
 
 - PARALLEL KEY MODULATION
 	- Shift Major/Minor key on same tonic root
