@@ -23,7 +23,7 @@ TYPES of Modulation:
 
 - PARALLEL KEY MODULATION
 	- Shift Major/Minor key on same tonic root
-	- May require last chord of previous to be set to a picot chord. Pivot chord may be tacked on at end of progression. (ii - IV :| V :|)
+	- May require last chord of previous to be set to a pivot chord. Pivot chord may be tacked on at end of progression. (ii - IV :| V :|)
 
 
 - RELATIVE KEY MODULATION
