@@ -47,8 +47,6 @@ TYPES:
 
 End chord of previous section may have to be altered to a pivot chord in case of modulation
 
-Splice bridge section into structure
-
 
 
 
