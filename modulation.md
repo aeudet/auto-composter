@@ -37,14 +37,14 @@ TYPES of Modulation:
 	- VARIANT: Shift to neighbour and change mode
 
 - Near-Key Modulation
-	- Shift from home key to key 4 steps away
-	- Shift from home key to key 5 steps away
+	- Shift from home key to key 2 steps in either direction away in circle of fiths
+	- Shift from home key to key 3 steps in either direction away in circle of fifths
 
 
 - Foreign-Key Modulation
-	
+	- Shift to random key.
 
-- KEY SHIFT (half or whole step up or down)
+- KEY SHIFT or Truck Driver (half or whole step up or down)
 
 
 End chord of previous section may have to be altered to a pivot chord in case of modulation
