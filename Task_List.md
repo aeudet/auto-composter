@@ -1,4 +1,4 @@
-### Task List
+'### Task List
 
 - [x] Alter final chord for better musical resolution
 - [x] Make Major mode more common than Minor mode
@@ -7,4 +7,4 @@
 - [ ] Incorporate modulation
 - [ ] Fix case where generated penultimate chord is a "v" or "V" and the last chord is also a "v" or "V"
 - [ ] Display actual chord notes alongside roman symbols
-- [ ] Splice bridge sections into structure.
+- [ ] Splice bridge sections into structure.'
