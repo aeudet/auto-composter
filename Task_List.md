@@ -1,4 +1,4 @@
-'### Task List
+### Task List
 
 - [x] Alter final chord for better musical resolution
 - [x] Make Major mode more common than Minor mode
