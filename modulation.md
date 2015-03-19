@@ -66,3 +66,13 @@ Modulation Types:
 +3 (minor to major) check key state
 
 ±3 to ±11
+
+
+
+PIVOT CHORDS
+
+- Check if secton modulates. If yes, add pivot chords at end of progression.
+- ALT: if section is only played once, replace last chord of progression
+- Check the type of modulation used. Each section has it's own pool of pivot chords
+- Print pivot chords as ||: I | IV :| V :|| x5
+
