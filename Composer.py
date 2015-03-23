@@ -220,10 +220,10 @@ MODULATION_TYPE = {
 }
 MODULATION_LIST = (
 	["none"] * 14 +
-	["parallel"] * 3 +
-	["relative"] * 3 +
-	["neighbour_up"] * 3 +
-	["neighbour_down"] * 3
+	["parallel"] * 2 +
+	["relative"] * 2 +
+	["neighbour_up"] * 2 +
+	["neighbour_down"] * 2
 	)
 
 def modulate_section(key):
