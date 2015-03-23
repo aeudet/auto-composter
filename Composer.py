@@ -308,6 +308,7 @@ alphabet = list(string.ascii_uppercase)
 for section in overall_structure:
 	for i in xrange(7):
 		if section == alphabet[i]:
+			overall_structure_keys.append(progression_keys[i])
 			overall_structure_progressions.append(
 					progressions_with_bars[i])
 			overall_structure_repeats.append(
@@ -331,9 +332,9 @@ for i in xrange(7):
 
 print overall_structure
 for i in xrange(len(overall_structure)):
-	print (overall_structure[i] + ": "  + "(" + progression_keys[i] + ") " + 
-	      "║: " + " ".join(overall_structure_progressions[i]) + " :║ x " +
-		  str(overall_structure_repeats[i]))
+	print (overall_structure[i] + ": "  + "(" + overall_structure_keys[i] + 
+		") " + "║: " + " ".join(overall_structure_progressions[i]) + " :║ x " +
+		str(overall_structure_repeats[i]))
 	
 # Display total song duration 
 time = 0
