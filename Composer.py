@@ -219,7 +219,7 @@ MODULATION_TYPE = {
 	"neighbour_down": {"semitones": -7, "change_scale": False}
 }
 MODULATION_LIST = (
-	["none"] * 14 +
+	["none"] * 28 +
 	["parallel"] * 2 +
 	["relative"] * 2 +
 	["neighbour_up"] * 2 +
