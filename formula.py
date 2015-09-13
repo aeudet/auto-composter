@@ -73,53 +73,7 @@ MODULATION_FREQ = (
     ["neighbour_up"] * 2 +
     ["neighbour_down"] * 2
     )
-
-MAJOR_CHAIN = {
-    "start": {"I": 50, "IV": 16, "V": 16, "ii": 7, "vi": 7}, # Starting Chord
-    "I": {"I": 16, "ii": 16, "ii7": 1, "iii": 16, "III": 1, "iv": 1, "IV": 16,
-          "V": 16, "v": 1, "V7": 1, "vi": 16, "viiø7": 0}, # Tonic
-    "i": {"I": 16, "ii": 16, "ii7": 1, "iii": 16, "IV": 16, "iv": 1, "V": 16,
-          "v": 1, "V7": 1, "vi": 16, "VI": 1, "viiø7": 0}, # Parallel Minor Chord
-    "ii": {"V": 16, "v": 1, "V7": 1, "viiø7": 0}, # Super Tonic
-    "ii7": {"V": 16, "v": 1, "V7": 1, "viiø7": 0}, # Seventh Chord
-    "II": {"V": 16, "v": 1, "V7": 1, "viiø7": 0}, # Relative Major Chord
-    "iii": {"vi": 16, "VI": 1, "IV": 16, "iv": 1, "ii": 16, "ii7": 1}, # Mediant
-    "III": {"vi": 16, "IV": 16, "iv": 1, "ii": 16, "ii7": 1}, # Relative Major Chord
-    "IV": {"V": 16, "v": 1, "ii": 16, "ii7": 1, "viiø7": 0}, # Subdominant
-    "iv": {"V": 16, "v": 1, "ii": 16, "ii7": 1, "viiø7": 0}, # Parallel Minor Chord
-    "V": {"I": 16, "vi": 16, "VI": 1,}, # Dominant
-    "V7": {"I": 16, "vi": 16, "VI": 1},  # Seventh Chord
-    "v": {"I": 16, "vi": 16, "VI": 1}, # Parallel Minor Chord
-    "vi": {"ii": 16, "ii7": 1, "IV": 16, "iv": 1}, # Submediant
-    "VI": {"ii": 16, "ii7": 1, "IV": 16, "iv": 1}, # Relative Major Chord
-    "vii°": {"I": 16, "vi": 16, "VI": 1}, # Leading Tone
-    "viiø7": {"I": 16, "vi": 16, "VI": 1}, # Seventh Chord
-    "end_I": {"V": 32, "V7": 1, "IV": 1}, # Resolve Chords Starting First
-    "end_other": {"I": 16, "V": 1, "V7": 1} # Resolve Chords Starting Any
-}
-
-MINOR_CHAIN = {
-    "start": {"i": 40, "iv": 16, "v": 16}, # Starting Chord
-    "i": {"i": 16, "iiø7": 0, "ii": 1, "III": 16, "iii":1, "iv": 16, "IV": 1,
-          "v": 16, "V7": 1, "V": 1, "VI": 16, "VII": 16}, # Tonic
-    "ii°": {"i": 2,"v": 16, "V": 1, "VII": 16}, # Super Tonic
-    "ii": {"v": 16, "V": 1, "VII": 16}, # Relative Minor Chord
-    "iiø7": {"v": 16, "V": 1, "VII": 16}, # Seventh Chord
-    "III": {"VI": 16, "vi": 1, "iv": 16, "IV": 1, "iiø7": 0}, # Mediant
-    "iii": {"VI": 1, "vi": 1, "iv": 16, "IV": 1, "iiø7": 0}, # Relative Minor Chord
-    "iv": {"iiø7": 0, "VII": 16, "v": 16, "V": 1, "i": 2}, # Subdominant
-    "IV": {"iiø7": 0, "VII": 16, "v": 16, "V": 1, "i": 2}, # Parallel Major Chord
-    "v": {"i": 16, "VI": 16, "vi": 1}, # Dominant 
-    "V": {"i": 16, "VI": 16, "vi": 1}, # Parallel Major Chord
-    "V7": {"i": 16, "VI": 16}, # Seventh Chord
-    "VI": {"iv": 16, "IV": 1, "iiø7": 0, "III":16, "iii":1}, # Submediant
-    "vi": {"iv": 16, "IV": 1, "iiø7": 0}, # Relative Minor Chord
-    "VII": {"III": 16, "iii":1}, # Leading Tone
-    "vii°7": {"III": 16, "iii":1}, # Seventh Chord
-    "end_I": {"v":8, "iv":1}, # Resolve Chords Starting First
-    "end_other": {"i":16, "v":1} # Resolve Chords Starting Any
-}
-
+  
 STRUCTURE_CHAIN = {
     "A": {"A": 1, "B": 6, "C": 6, "D": 5, "E": 3, "F": 3, "G": 3},
     "B": {"A": 6, "B": 1, "C": 3, "D": 5, "E": 3, "F": 3, "G": 3},
@@ -128,4 +82,421 @@ STRUCTURE_CHAIN = {
     "E": {"A": 4, "B": 2, "C": 4, "D": 4, "E": 1, "F": 4, "G": 3},
     "F": {"A": 3, "B": 3, "C": 3, "D": 3, "E": 3, "F": 1, "G": 3},
     "G": {"A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F": 1, "G": 1}
+}
+
+MAJOR_CHAIN = {
+
+# Starting Chords
+
+    # Start
+    "start": {
+        # Primary
+        "I": 60, "ii": 2, "iii": 0, "IV": 6, "V": 6, "vi": 1, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 0, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+# Regular Tones Major
+        
+    # Tonic (I)
+    "I": {
+        # Primary
+        "I": 60, "ii": 60, "iii": 60, "IV": 60, "V": 60, "vi": 60, "viiø7": 0,
+        # Sevenths
+        "I7": 2, "ii7": 4, "iii7": 0, "IV7": 0, "V7": 4, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Super Tonic (ii)
+    "ii": {
+        # Primary
+        "I": 3, "ii": 0, "iii": 0, "IV": 0, "V": 60, "vi": 0, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 2, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Mediant (iii)    
+    "iii": {
+        # Primary
+        "I": 0, "ii": 60, "iii": 0, "IV": 60, "V": 0, "vi": 60, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 3, "iii7": 0, "IV7": 0, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Subdominant (IV)
+    "IV": {
+        # Primary
+        "I": 0, "ii": 60, "iii": 0, "IV": 0, "V": 60, "vi": 0, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 2, "iii7": 0, "IV7": 0, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Dominant (V)
+    "V": {
+        # Primary
+        "I": 60, "ii": 0, "iii": 0, "IV": 60, "V": 0, "vi": 60, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 2, "V7": 3, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Submediant (vi)
+    "vi": {
+        # Primary
+        "I": 0, "ii": 60, "iii": 0, "IV": 60, "V": 0, "vi": 0, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 2, "iii7": 0, "IV7": 0, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Leading Tone (vii)
+    "vii°": {
+        # Primary
+        "I": 60, "ii": 0, "iii": 0, "IV": 0, "V": 0, "vi": 60, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 0, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+# Irregular Tones Major
+
+    # Parallel Minor Tonic (i)
+    "i": {
+        # Primary
+        "I": 60, "ii": 60, "iii": 60, "IV": 60, "V": 60, "vi": 60, "viiø7": 0,
+        # Sevenths
+        "I7": 2, "ii7": 4, "iii7": 0, "IV7": 0, "V7": 4, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Relative Major Chord (II)
+    "II": {
+        # Primary
+        "I": 3, "ii": 0, "iii": 0, "IV": 0, "V": 60, "vi": 0, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 2, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Relative Major Chord (III)
+    "III": {
+        # Primary
+        "I": 0, "ii": 60, "iii": 0, "IV": 60, "V": 0, "vi": 60, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 3, "iii7": 0, "IV7": 0, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Parallel Minor Chord (iv)
+    "iv": {
+        # Primary
+        "I": 0, "ii": 60, "iii": 0, "IV": 0, "V": 60, "vi": 0, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 2, "iii7": 0, "IV7": 0, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        }, 
+    
+    # Parallel Minor Chord (v)
+    "v": {
+        # Primary
+        "I": 60, "ii": 0, "iii": 0, "IV": 60, "V": 0, "vi": 60, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 2, "V7": 3, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },  
+
+    # Relative Major Chord (VI)
+    "VI": {
+        # Primary
+        "I": 0, "ii": 60, "iii": 0, "IV": 60, "V": 0, "vi": 0, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 2, "iii7": 0, "IV7": 0, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+#Seventh Chords Major
+
+    # Seventh (I7)
+    "I7": {
+        # Primary
+        "I": 60, "ii": 60, "iii": 60, "IV": 60, "V": 60, "vi": 60, "viiø7": 0,
+        # Sevenths
+        "I7": 2, "ii7": 4, "iii7": 0, "IV7": 0, "V7": 4, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Seventh (ii7)
+    "ii7": {
+        # Primary
+        "I": 3, "ii": 0, "iii": 0, "IV": 0, "V": 60, "vi": 0, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 2, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Seventh (V7)
+    "V7": {
+        # Primary
+        "I": 60, "ii": 0, "iii": 0, "IV": 60, "V": 0, "vi": 60, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 2, "V7": 3, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    # Seventh (vii°7)
+    "vii°7": {
+        # Primary
+        "I": 60, "ii": 0, "iii": 0, "IV": 0, "V": 0, "vi": 60, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 0, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+    
+#Ending Chords Major
+
+    #End_I - Resolve Chords Starting First
+    "end_I": {
+        # Primary
+        "I": 0, "ii": 0, "iii": 0, "IV": 2, "V": 60, "vi": 0, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 1, "V7": 0, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+
+    #End_other - Resolve Chords Starting Anything Else
+    "end_other": {
+        # Primary
+        "I": 60, "ii": 0, "iii": 0, "IV": 0, "V": 2, "vi": 0, "viiø7": 0,
+        # Sevenths
+        "I7": 0, "ii7": 0, "iii7": 0, "IV7": 0, "V7": 2, "vi7": 0,
+        # Parallel/Relative
+        "i": 0, "II": 0, "III": 0, "iv": 0, "v": 0, "VI": 0
+        },
+}
+
+MINOR_CHAIN = {
+    
+#Starting Chords
+
+    # Start
+    "start": {
+        # Primary
+        "i": 60, "ii°": 0, "III": 0, "iv": 5, "v": 5, "VI": 0, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 0, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+#Regular Tones Minor
+
+    # Tonic (i)
+    "i": {
+        # Primary
+        "i": 60, "ii°": 0, "III": 60, "iv": 60, "v": 60, "VI": 60, "VII": 60,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 2, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Super Tonic (ii°)
+    "ii°": {
+        # Primary
+        "i": 5, "ii°": 0, "III": 0, "iv": 0, "v": 60, "VI": 0, "VII": 60,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 2, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Mediant (III)
+    "III": {
+        # Primary
+        "i": 0, "ii°": 0, "III": 0, "iv": 60, "v": 0, "VI": 60, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 2, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Subdominant (iv)
+    "iv": {
+        # Primary
+        "i": 3, "ii°": 0, "III": 0, "iv": 0, "v": 60, "VI": 0, "VII": 60,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 2, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Dominant (v)
+    "v": {
+        # Primary
+        "i": 60, "ii°": 0, "III": 0, "iv": 0, "v": 0, "VI": 60, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 2, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Submediant (VI)
+    "VI": {
+        # Primary
+        "i": 0, "ii°": 0, "III": 60, "iv": 60, "v": 0, "VI": 0, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 0, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Leading Tone (VII)  
+    "VII": {
+        # Primary
+        "i": 0, "ii°": 0, "III": 60, "iv": 0, "v": 0, "VI": 0, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 0, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+# Irregular Tones Minor
+
+    # Relative Minor Chord (II)
+    "II": {
+        # Primary
+        "i": 5, "ii°": 0, "III": 0, "iv": 0, "v": 60, "VI": 0, "VII": 60,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 2, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Relative Minor Chord (iii)
+    "iii": {
+        # Primary
+        "i": 0, "ii°": 0, "III": 0, "iv": 60, "v": 0, "VI": 60, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 2, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Parallel Major Chord (IV)
+    "IV": {
+        # Primary
+        "i": 3, "ii°": 0, "III": 0, "iv": 0, "v": 60, "VI": 0, "VII": 60,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 2, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Parallel Major Chord (V)  
+    "V": {
+        # Primary
+        "i": 60, "ii°": 0, "III": 0, "iv": 0, "v": 0, "VI": 60, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 2, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+    
+    # Relative Minor Chord (vi) 
+    "vi": {
+        # Primary
+        "i": 0, "ii°": 0, "III": 60, "iv": 0, "v": 0, "VI": 0, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 0, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Relative Minor Chord (viiø7)
+    "VII": {
+        # Primary
+        "i": 0, "ii°": 0, "III": 60, "iv": 0, "v": 0, "VI": 0, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 0, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+# Seventh Chords Minor
+
+    # Seventh (ii)
+    "iiø7": {
+        # Primary
+        "i": 0, "ii°": 0, "III": 0, "iv": 0, "v": 16, "VI": 16, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 0, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Seventh (v)
+    "V7": {
+        # Primary
+        "i": 16, "ii°": 0, "III": 0, "iv": 0, "v": 0, "VI": 16, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 0, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Seventh (vii)
+    "vii°7": {
+        # Primary
+        "i": 0, "ii°": 0, "III": 16, "iv": 0, "v": 0, "VI": 0, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 0, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0 
+       },
+    
+
+# Ending Chords Minor
+
+    # Resolve Chords Starting First
+    "end_I": {
+        # Primary
+        "i": 0, "ii°": 0, "III": 0, "iv": 1, "v": 60, "VI": 0, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 0, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
+
+    # Resolve Chords Starting Any
+    "end_other": {
+        # Primary
+        "i": 60, "ii°": 0, "III": 0, "iv": 0, "v": 1, "VI": 0, "VII": 0,
+        # Sevenths
+        "i7": 0, "iiø7": 0, "III7": 0, "iv7": 0, "V7": 0, "VII7": 0,
+        # Parallel/Relative
+        "I": 0, "II": 0, "iii": 0, "IV": 0, "V": 0, "vi": 0, "viiø7": 0
+        },
 }
