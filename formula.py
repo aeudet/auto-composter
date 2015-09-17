@@ -91,7 +91,7 @@ MAJOR_CHAIN = {
     # Start
     "start": {
         # Primary
-        "I": 60, "ii": 2, "iii": 0, "IV": 6, "V": 6, "vi": 1, "viiø7": 0,
+        "I": 60, "ii": 6, "iii": 0, "IV": 6, "V": 7, "vi": 1, "viiø7": 0,
         # Sevenths
         "I7": 0, "ii7": 0, "iii7": 0, "IV7": 0, "V7": 0, "vi7": 0,
         # Parallel/Relative
