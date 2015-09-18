@@ -279,7 +279,7 @@ MAJOR_CHAIN = {
     #End_I - Resolve Chords Starting First
     "end_I": {
         # Primary
-        "I": 0, "ii": 0, "iii": 0, "IV": 2, "V": 60, "vi": 0, "viiø7": 0,
+        "I": 0, "ii": 15, "iii": 15, "IV": 15, "V": 60, "vi": 15, "viiø7": 0,
         # Sevenths
         "I7": 0, "ii7": 0, "iii7": 0, "IV7": 1, "V7": 0, "vi7": 0,
         # Parallel/Relative
@@ -289,7 +289,7 @@ MAJOR_CHAIN = {
     #End_other - Resolve Chords Starting Anything Else
     "end_other": {
         # Primary
-        "I": 60, "ii": 0, "iii": 0, "IV": 0, "V": 2, "vi": 0, "viiø7": 0,
+        "I": 60, "ii": 0, "iii": 0, "IV": 15, "V": 15, "vi": 0, "viiø7": 0,
         # Sevenths
         "I7": 0, "ii7": 0, "iii7": 0, "IV7": 0, "V7": 2, "vi7": 0,
         # Parallel/Relative
